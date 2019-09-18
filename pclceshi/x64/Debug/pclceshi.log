@@ -1,0 +1,6 @@
+﻿  RandomPoint.cpp
+e:\pcltest\pclceshi2\pclceshi\utils\texture.h(91): warning C4267: “参数”: 从“size_t”转换到“GLenum”，可能丢失数据
+e:\program files\pcl 1.9.1\include\pcl-1.9\pcl\point_traits.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+e:\program files\pcl 1.9.1\include\pcl-1.9\pcl\visualization\interactor_style.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+e:\program files\pcl 1.9.1\include\pcl-1.9\pcl\visualization\pcl_visualizer.h(1609): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  pclceshi.vcxproj -> E:\pcltest\pclceshi2\x64\Debug\pclceshi.exe

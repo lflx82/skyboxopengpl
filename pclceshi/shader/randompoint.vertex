@@ -1,0 +1,23 @@
+#version 330 core
+
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec2 textCoord;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
+
+out vec2 textcoord;
+out float dz;
+
+void main()
+{
+	gl_Position = projection * view * model * vec4(position, 1.0);
+	vec4 pos=projection * view * model * vec4(position, 1.0);
+	dz=(pos.z/pos.w+1.0)/2.0;
+	float dx=(pos.x/pos.w+1.0)/2.0;
+	float dy=(pos.y/pos.w+1.0)/2.0;
+	gl_PointSize = 3.0;
+	//textcoord = textCoord;
+	textcoord=vec2(dx,dy);
+}

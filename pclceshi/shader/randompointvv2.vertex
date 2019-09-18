@@ -1,0 +1,99 @@
+#version 330 core
+
+layout(location = 0) in vec3 position;
+//layout(location = 1) in vec2 textCoord;
+layout(location = 1) in vec3 colo;
+layout(location = 2) in  float  state;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
+
+out vec4 col;
+
+uniform sampler2D frontDepthMap;
+uniform sampler2D backDepthMap;
+
+void main()
+{
+	gl_Position = projection * view * model * vec4(position, 1.0);
+	vec4 pos=projection * view * model * vec4(position, 1.0);
+	float dz=(pos.z/pos.w+1.0)/2.0;
+	float dx=(pos.x/pos.w+1.0)/2.0;
+	float dy=(pos.y/pos.w+1.0)/2.0;
+	
+	
+	vec2 textcoord=vec2(dx,dy);
+
+	float dzback1 = texture(backDepthMap, textcoord).r;
+	float dzfront2 = texture(frontDepthMap, textcoord).r;
+	
+	vec4 color3;
+	int i=0;
+
+	if (dz<dzfront2) 
+	{
+	    if(dzfront2-0.9999>0)
+		{
+			color3 = vec4(1.0,1.0,0.0,0.5);
+			i=5;
+		}
+		else
+		{
+			color3 = vec4(1.0,0.0,0.0,0.5);
+			i=6;
+		}
+	}
+	else if(dz>dzback1)
+    {
+		color3 = vec4(0.0,1.0,0.0,0.3);
+		i=2;
+	}
+	else
+	{
+		color3 = vec4(0.0,0.0,1.0,0.6);
+		i=3;
+	}
+	//col=vec4(state,0.0,0.0,1.0);
+	//float a = state;
+	float a = 1.0f;
+	float b = 2.0f;
+	float c = 3.0f;
+	float d = 4.0f;
+	if(state == a)
+	{
+		col=vec4(0.0,0.0,0.0,1.0);
+		gl_PointSize =0.0;
+	}
+	else if(state == b)
+	{
+	    col=vec4(1.0,0.0,0.0,1.0);
+		gl_PointSize =10.0;
+	}
+	else if(state == c)
+	{
+	    col=vec4(0.0,1.0,0.0,1.0);
+		gl_PointSize =0.0;
+	}
+	else if(state == d)
+	{
+	    col=vec4(1.0,1.0,1.0,1.0);
+		gl_PointSize =10.0;
+	}
+	else
+	{
+	    col=vec4(0.0,0.0,1.0,1.0);
+		gl_PointSize =20.0;
+	}
+	//if(state==2)
+	//{
+	//	col=vec4(0.0,0.0,1.0,1.0);
+	//}
+
+	//else
+	{
+	  // col=vec4(0.0,1.0,1.0,1.0);
+	}
+	//col=color3;
+	//col=vec4(colo,1.0);
+}
